@@ -1,9 +1,8 @@
-
-from rest_framework import viewsets, permissions
+import re
+from rest_framework import viewsets, permissions, serializers
 
 from contas.serializers import PessoaProfissionalSerializer
 from .models import PessoaProfissional
-
 
 class IsOwnerOrAdmin(permissions.BasePermission):
     """
@@ -34,3 +33,19 @@ class PessoaProfissionalViewSet(viewsets.ModelViewSet):
             self.permission_classes = [permissions.AllowAny]
         return super().get_permissions()
 
+    def perform_create(self, serializer):
+        """
+        Sobrescreve o método para sanitizar o CPF antes de criar o objeto.
+        """
+        cpf = self.validate_cpf(serializer.validated_data.get('cpf', ''))
+        serializer.validated_data['cpf'] = cpf
+        super().perform_create(serializer)
+
+    def validate_cpf(self, value):
+        """
+        Remove pontuações e valida o CPF.
+        """
+        cpf = re.sub(r'\D', '', value)  # Remove todos os caracteres não numéricos
+        if len(cpf) != 11:
+            raise serializers.ValidationError('CPF deve conter 11 dígitos.')
+        return cpf
