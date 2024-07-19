@@ -47,7 +47,7 @@ class PessoaProfissional(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=254, unique=True)
     cpf = models.CharField(max_length=11, unique=True)
     especialidade_medica = models.CharField(max_length=20, choices=EspecialidadeMedica.choices)
-    foto_documento = models.ImageField(upload_to='fotos_documentos/')
+    foto_documento = models.ImageField(upload_to='contas/fotos_documentos/')
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_atualizacao = models.DateTimeField(auto_now=True)
 

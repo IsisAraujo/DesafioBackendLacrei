@@ -33,7 +33,7 @@ A aplicação estará disponível em [http://127.0.0.1:8000/](http://127.0.0.1:8
 
 ### Modelos
 
-- **PessoaProfissional**: Armazena informações sobre profissionais de saúde,  Nome Social, nome completo, profissão, especialidade médica e CPF. Utiliza um gerenciador de usuários personalizado para criar e gerenciar usuários com diferentes permissões.
+- **PessoaProfissional**: Armazena informações sobre profissionais de saúde,  como: Nome Social, nome completo, profissão, especialidade médica e CPF. Utiliza um gerenciador de usuários personalizado para criar e gerenciar usuários com diferentes permissões.
 
 ### Serializers
 
@@ -47,9 +47,15 @@ A aplicação estará disponível em [http://127.0.0.1:8000/](http://127.0.0.1:8
 
 Define rotas para listar, criar, atualizar e excluir registros de `PessoaProfissional`. As rotas são configuradas para aceitar requisições HTTP específicas (GET, POST, PUT, PATCH, DELETE).
 
-## Arquitetura de Permissões
+### Sanitização de inputs e outras validações de segurança
+
+A sanitização de inputs foi aplicada no campo CPF para remover formatações e garantir que apenas números sejam armazenados. Validações de segurança foram implementadas nas permissões IsOwnerOrAdmin e permissions.AllowAny para controlar o acesso às operações CRUD no PessoaProfissionalViewSet.
+
+
+## Arquitetura de Permissões 
 
 - **Permissões Personalizadas**: `IsOwnerOrAdmin` permite que apenas o próprio usuário ou administradores realizem atualizações e exclusões de registros. Todos os outros métodos são acessíveis a qualquer usuário autenticado.
+
 
 ## Testes do Modelo PessoaProfissional
 
@@ -161,5 +167,5 @@ Este teste verifica se o método `__str__` do modelo `Consulta` retorna corretam
 
 - **Objetivo**: Os testes garantem que o modelo `Consulta` seja criado corretamente e que o método de representação textual (`__str__`) funcione como esperado.
 - **Cobertura**: O teste cobre a criação do modelo `Consulta` e a verificação da representação textual, assegurando que a funcionalidade do modelo esteja de acordo com os requisitos.
-```
+
 

@@ -4,4 +4,14 @@ from .models import PessoaProfissional
 class PessoaProfissionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = PessoaProfissional
-        fields = '__all__'
+        fields = [
+            'nome_completo',
+            'profissao',
+            'endereco',
+            'celular',
+            'nome_social',
+            'email',
+            'cpf',
+            'especialidade_medica',
+            'foto_documento',
+        ]
